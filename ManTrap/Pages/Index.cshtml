@@ -1,10 +1,111 @@
 ﻿@page
-@model IndexModel
+@model ManTrap.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    async Task Get()
+    {
+        for (int i = 0; i < Model.Mangas.Count; i++)
+        {
+            <div class="MangaContainer">
+
+                <div class="PictureAndListContainer">
+
+                    <img src=@Model.Mangas[i].ImageSource alt="Отсутствует">
+
+                </div>
+
+                <form method="post" asp-page="MangaId">
+                    <div class="Information">
+                        <label id="Name">@Model.Mangas[i].RussianName</label>
+                        <label id="EnglishName">@Model.Mangas[i].EnglishName</label>
+                        <label class="OtherInformation">@Model.Mangas[i].Type @("/") @Model.Mangas[i].Status</label>
+                        <label class="OtherInformation">
+                            @for (int j = 0; j < Model.Mangas[i].Genres.Count; j++)
+                            {
+                                <label>@Model.Mangas[i].Genres[j]@(" ")</label>
+                            }
+                        </label>
+                    </div>
+                    <input type="submit" value="Подробнее" asp-page-handler="MangaIdPage" asp-route-id="@Model.Mangas[i].Id" />
+                </form>
+
+            </div>
+
+            <hr>
+        }
+    }
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="~/css/MangasStyle.css" asp-append-version="true" />
+
+</head>
+<body>
+    <div class="MainContainer">
+
+        <div class="ContainerWithManga">
+
+            @Get();
+
+        </div>
+
+
+        <div class="FiltrContainer">
+
+            <label class="FiltrLabel">Настройки</label>
+
+            <form method="post" asp-page-handler="ById">
+
+                <div class="LabelAndInput">
+                    <label class="FiltrLabel">Жанры</label>
+                    <select asp-for="Genre" asp-items="@Model.Genres" onchange="this.form.submit()"></select>
+                </div>
+
+                <div class="LabelAndInput">
+                    <label class="FiltrLabel">Статус</label>
+                    <select asp-for="Status" asp-items="@Model.Statuses" onchange="this.form.submit()"></select>
+                </div>
+
+                <div class="LabelAndInput">
+                    <label class="FiltrLabel">Тип</label>
+                    <select asp-for="Kind" asp-items="@Model.Kinds" onchange="this.form.submit()"></select>
+                </div>
+
+                <div class="LabelAndInput">
+
+                    <label class="FiltrLabel">Сортировка</label>
+
+                    <select asp-for="Order" onchange="this.form.submit()">
+                        <option value="1">По рейтингу</option>
+                        <option value="2">По типу</option>
+                        <option value="3">По популярности</option>
+                        <option value="4">По имени</option>
+                        <option value="5">По дате релиза</option>
+                        <option value="6">По статусу</option>
+                        <option value="7">Случайно</option>
+                    </select>
+
+                </div>
+
+                <div class="LabelAndInput">
+
+                    <label class="FiltrLabel">Поиск</label>
+                    <input type="text" asp-for="Search" onchange="this.form.submit()" />
+
+                </div>
+
+            </form>
+
+
+
+        </div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>
