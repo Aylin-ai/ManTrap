@@ -1,0 +1,34 @@
+﻿@page
+@model ManTrap.Pages.AddAuthorModel
+@{
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/AddMangaStyle.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="outer-page">
+        <div class="Page">
+            <label style="font-size:20px; color: white; margin: 10px;">Добавить нового автора</label>
+            <form method="post" asp-page-handler="AddAuthor">
+                <div class="form">
+                    <div class="form__field">
+                        <label>Имя</label>
+                        <input type="text" name="authorName" />
+                    </div>
+                    <div class="form__field">
+                        <label>Описание</label>
+                        <textarea name="authorOverview" cols="40" rows="5"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="submit" value="Добавить" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

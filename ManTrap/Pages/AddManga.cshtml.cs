@@ -26,38 +26,38 @@ namespace ManTrap.Pages
 
         public AddMangaModel()
         {
+            Task.Run(GetReleaseFormats);
+            Task.Run(GetTranslateTeams);
+            Task.Run(GetData);
+            Task.Run(GetAuthors);
         }
 
-        public async void OnGet()
+        public async void OnGetAsync()
         {
-            await GetData();
-            await GetAuthors();
-            await GetArtists();
-            await GetPublishers();
-            await GetReleaseFormats();
             await GetStatuses();
             await GetTranslateStatuses();
-            await GetTranslateTeams();
             await GetTypes();
+            await GetArtists();
+            await GetPublishers();
         }
 
         public async Task<IActionResult> OnPostUpload(IFormFile file, string originalName, string russianName,
-            string englishName, string type, int yearOfRelease,
-            string author, string artist, string publisher,
-            string[] genres, string[] releaseformats, string translateTeam,
+            string englishName, int yearOfRelease,
+            string[] authors, string[] artists, string[] publishers,
+            string[] genres, string[] releaseFormats, string translateTeam,
             string status, string translateStatus, string sourceOfOriginal,
-            string overview)
+            string overview, string type = "1")
         {
             try
             {
                 if (russianName == null || type == null
-                    || author == null || artist == null
-                    || publisher == null || status == null
+                    || authors == null || artists == null
+                    || publishers == null || status == null
                     || overview == null)
                 {
                     return BadRequest("Вы не ввели все данные");
                 }
-                else if (genres == null || releaseformats == null)
+                else if (genres == null || releaseFormats == null)
                 {
                     return BadRequest("Вы не ввели все данные");
                 }
@@ -75,9 +75,9 @@ namespace ManTrap.Pages
                             "SourceOfOriginal, Overview, Checked) " +
                             "values " +
                             "(@originalName, @russianName, @englishName, " +
-                            "(select Id from mangatype where Title = @mangaType), " +
-                            "(select Id from mangastatus where Title = @mangaStatus), " +
-                            "(select Id from translatestatus where Title = @translateStatus), " +
+                            "@mangaType, " +
+                            "@mangaStatus, " +
+                            "@translateStatus, " +
                             "@yearOfRelease, @sourceOfOriginal, @overview, 0)";
 
                         MySqlCommand cmd = new MySqlCommand();
@@ -95,7 +95,7 @@ namespace ManTrap.Pages
                         cmd.Parameters.AddWithValue("@overview", overview);
 
                         await cmd.ExecuteNonQueryAsync();
-                        return Page();
+                        return RedirectToPage("/AddManga");
 
                     }
                     catch (Exception ex)
@@ -119,6 +119,7 @@ namespace ManTrap.Pages
 
         private async Task GetData()
         {
+            Genres.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try
@@ -156,6 +157,7 @@ namespace ManTrap.Pages
 
         private async Task GetAuthors()
         {
+            Authors.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try
@@ -196,6 +198,7 @@ namespace ManTrap.Pages
 
         private async Task GetArtists()
         {
+            Artists.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try
@@ -236,6 +239,7 @@ namespace ManTrap.Pages
 
         private async Task GetPublishers()
         {
+            Publishers.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try
@@ -276,6 +280,7 @@ namespace ManTrap.Pages
 
         private async Task GetTranslateTeams()
         {
+            TranslateTeams.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try
@@ -316,6 +321,7 @@ namespace ManTrap.Pages
 
         private async Task GetReleaseFormats()
         {
+            ReleaseFormats.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try
@@ -356,6 +362,7 @@ namespace ManTrap.Pages
 
         private async Task GetTypes()
         {
+            Types.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try
@@ -396,6 +403,7 @@ namespace ManTrap.Pages
 
         private async Task GetStatuses()
         {
+            Statuses.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try
@@ -436,6 +444,7 @@ namespace ManTrap.Pages
 
         private async Task GetTranslateStatuses()
         {
+            TranslateStatuses.Clear();
             MySqlConnection conn = DBUtils.GetDBConnection();
             conn.Open();
             try

@@ -57,7 +57,7 @@
                     <div class="form__field">
                         <div class="rows">
                             <label class="cols1">Автор</label>
-                            <span>Создать нового автора</span>
+                            <a asp-page="AddAuthor"><span>Создать нового автора</span></a>
                         </div>
                         <div class="SelectContainer">
                             <input id="authorSelect" type="text" aria-expanded="false" />
@@ -67,8 +67,8 @@
                                     @for (int i = 0; i < Model.Authors.Count; i++)
                                     {
                                         <li>
-                                            <input type="checkbox" id="@($"option{i}")" name="authors[]" value="@Model.Authors[i].Value">
-                                            <label for="@($"option{i}")">@Model.Authors[i].Text</label>
+                                            <input type="checkbox" id="@($"option1{i}")" name="authors[]" value="@Model.Authors[i].Value">
+                                            <label for="@($"option1{i}")">@Model.Authors[i].Text</label>
                                         </li>
                                     }
                                 </ul>
@@ -88,8 +88,8 @@
                                     @for (int i = 0; i < Model.Artists.Count; i++)
                                     {
                                         <li>
-                                            <input type="checkbox" id="@($"option{i}")" name="artists[]" value="@Model.Artists[i].Value">
-                                            <label for="@($"option{i}")">@Model.Artists[i].Text</label>
+                                            <input type="checkbox" id="@($"option2{i}")" name="artists[]" value="@Model.Artists[i].Value">
+                                            <label for="@($"option2{i}")">@Model.Artists[i].Text</label>
                                         </li>
                                     }
                                 </ul>
@@ -109,8 +109,8 @@
                                     @for (int i = 0; i < Model.Publishers.Count; i++)
                                     {
                                         <li>
-                                            <input type="checkbox" id="@($"option{i}")" name="publishers[]" value="@Model.Publishers[i].Value">
-                                            <label for="@($"option{i}")">@Model.Publishers[i].Text</label>
+                                            <input type="checkbox" id="@($"option3{i}")" name="publishers[]" value="@Model.Publishers[i].Value">
+                                            <label for="@($"option3{i}")">@Model.Publishers[i].Text</label>
                                         </li>
                                     }
                                 </ul>
@@ -127,8 +127,8 @@
                                     @for (int i = 0; i < Model.Genres.Count; i++)
                                     {
                                         <li>
-                                            <input type="checkbox" id="@($"option{i}")" name="genres[]" value="@Model.Genres[i].Value">
-                                            <label for="@($"option{i}")">@Model.Genres[i].Text</label>
+                                            <input type="checkbox" id="@($"option4{i}")" name="genres[]" value="@Model.Genres[i].Value">
+                                            <label for="@($"option4{i}")">@Model.Genres[i].Text</label>
                                         </li>
                                     }
                                 </ul>
@@ -145,8 +145,8 @@
                                     @for (int i = 0; i < Model.ReleaseFormats.Count; i++)
                                     {
                                         <li>
-                                            <input type="checkbox" id="@($"option{i}")" name="releaseFormats[]" value="@Model.ReleaseFormats[i].Value">
-                                            <label for="@($"option{i}")">@Model.ReleaseFormats[i].Text</label>
+                                            <input type="checkbox" id="@($"option5{i}")" name="releaseFormats[]" value="@Model.ReleaseFormats[i].Value">
+                                            <label for="@($"option5{i}")">@Model.ReleaseFormats[i].Text</label>
                                         </li>
                                     }
                                 </ul>
@@ -166,8 +166,8 @@
                                     @for (int i = 0; i < Model.TranslateTeams.Count; i++)
                                     {
                                         <li>
-                                            <input type="checkbox" id="@($"option{i}")" name="translateTeams[]" value="@Model.TranslateTeams[i].Value">
-                                            <label for="@($"option{i}")">@Model.TranslateTeams[i].Text</label>
+                                            <input type="checkbox" id="@($"option6{i}")" name="translateTeams[]" value="@Model.TranslateTeams[i].Value">
+                                            <label for="@($"option6{i}")">@Model.TranslateTeams[i].Text</label>
                                         </li>
                                     }
                                 </ul>
@@ -194,10 +194,10 @@
                     </div>
                     <div class="row">
                         <input type="submit" value="Сохранить" />
-                        <button>Назад</button>
                     </div>
                 </div>
             </form>
+            <a asp-page="Index"><button>Назад</button></a>
         </div>
     </div>
     <script>
