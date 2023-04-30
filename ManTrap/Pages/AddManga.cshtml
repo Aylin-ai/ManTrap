@@ -1,0 +1,259 @@
+﻿@page
+@model ManTrap.Pages.AddMangaModel
+@{
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/AddMangaStyle.css" asp-append-version="true" />
+
+    <!-- Include Twitter Bootstrap and jQuery: -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <!-- Include the plugin's CSS and JS: -->
+    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css" />
+</head>
+<body>
+    <div class="outer-page">
+        <div class="Page">
+
+            <form method="post" asp-page-handler="Upload"
+                  enctype="multipart/form-data">
+                <div class="Media-Uploader">
+                    <label>Обложка</label>
+                    <input type="file"
+                           name="file"/>
+                </div>
+                <div class="form">
+                    <div class="form__field">
+                        <label>Оригинальное название</label>
+                        <input type="text" name="originalName"/>
+                    </div>
+                    <div class="form__field">
+                        <label>Русское название</label>
+                        <input type="text" name="russianName"/>
+                    </div>
+                    <div class="form__field">
+                        <label>Английское название</label>
+                        <input type="text" name="englishName"/>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form__field">
+                                <label>Тип</label>
+                                <select name="type" asp-items="Model.Types"></select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form__field">
+                                <label>Год релиза</label>
+                                <input type="text" name="yearOfRelease"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <div class="rows">
+                            <label class="cols1">Автор</label>
+                            <span>Создать нового автора</span>
+                        </div>
+                        <div class="SelectContainer">
+                            <input id="authorSelect" type="text" aria-expanded="false" />
+
+                            <div id="author" aria-hidden="true">
+                                <ul>
+                                    @for (int i = 0; i < Model.Authors.Count; i++)
+                                    {
+                                        <li>
+                                            <input type="checkbox" id="@($"option{i}")" name="authors[]" value="@Model.Authors[i].Value">
+                                            <label for="@($"option{i}")">@Model.Authors[i].Text</label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <div class="rows">
+                            <label>Художник</label>
+                            <span>Создать нового художника</span>
+                        </div>
+                        <div class="SelectContainer">
+                            <input id="artistSelect" type="text" aria-expanded="false" />
+
+                            <div id="artist" aria-hidden="true">
+                                <ul>
+                                    @for (int i = 0; i < Model.Artists.Count; i++)
+                                    {
+                                        <li>
+                                            <input type="checkbox" id="@($"option{i}")" name="artists[]" value="@Model.Artists[i].Value">
+                                            <label for="@($"option{i}")">@Model.Artists[i].Text</label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <div class="rows">
+                            <label>Издатель</label>
+                            <span>Создать нового издателя</span>
+                        </div>
+                        <div class="SelectContainer">
+                            <input id="publisherSelect" type="text" aria-expanded="false" />
+
+                            <div id="publisher" aria-hidden="true">
+                                <ul>
+                                    @for (int i = 0; i < Model.Publishers.Count; i++)
+                                    {
+                                        <li>
+                                            <input type="checkbox" id="@($"option{i}")" name="publishers[]" value="@Model.Publishers[i].Value">
+                                            <label for="@($"option{i}")">@Model.Publishers[i].Text</label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <label>Жанры</label>
+                        <div class="SelectContainer">
+                            <input id="select" type="text" aria-expanded="false" />
+
+                            <div id="genre" aria-hidden="true">
+                                <ul>
+                                    @for (int i = 0; i < Model.Genres.Count; i++)
+                                    {
+                                        <li>
+                                            <input type="checkbox" id="@($"option{i}")" name="genres[]" value="@Model.Genres[i].Value">
+                                            <label for="@($"option{i}")">@Model.Genres[i].Text</label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <label>Формат выпуска</label>
+                        <div class="SelectContainer">
+                            <input id="releaseFormatSelect" type="text" aria-expanded="false" />
+
+                            <div id="releaseFormat" aria-hidden="true">
+                                <ul>
+                                    @for (int i = 0; i < Model.ReleaseFormats.Count; i++)
+                                    {
+                                        <li>
+                                            <input type="checkbox" id="@($"option{i}")" name="releaseFormats[]" value="@Model.ReleaseFormats[i].Value">
+                                            <label for="@($"option{i}")">@Model.ReleaseFormats[i].Text</label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <div class="rows">
+                            <label>Переводчики</label>
+                            <span>Создать новую команду</span>
+                        </div>
+                        <div class="SelectContainer">
+                            <input id="translateTeamSelect" type="text" aria-expanded="false" />
+
+                            <div id="translateTeam" aria-hidden="true">
+                                <ul>
+                                    @for (int i = 0; i < Model.TranslateTeams.Count; i++)
+                                    {
+                                        <li>
+                                            <input type="checkbox" id="@($"option{i}")" name="translateTeams[]" value="@Model.TranslateTeams[i].Value">
+                                            <label for="@($"option{i}")">@Model.TranslateTeams[i].Text</label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form__field">
+                                <label>Статус тайтла</label>
+                                <select name="status" asp-items="Model.Statuses"></select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form__field">
+                                <label>Статус перевода</label>
+                                <select name="translateStatus" asp-items="Model.TranslateStatuses"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__field">
+                        <label>Описание</label>
+                        <textarea name="overview" cols="40" rows="5"></textarea>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Сохранить" />
+                        <button>Назад</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const select = document.querySelector('#select');
+        const genre = document.querySelector('#genre');
+
+        select.addEventListener('click', function () {
+            const expanded = select.getAttribute('aria-expanded') === 'true' || false;
+            select.setAttribute('aria-expanded', !expanded);
+            genre.setAttribute('aria-hidden', expanded);
+        });
+
+        const authorSelect = document.querySelector('#authorSelect');
+        const author = document.querySelector('#author');
+
+        authorSelect.addEventListener('click', function () {
+            const expanded = authorSelect.getAttribute('aria-expanded') === 'true' || false;
+            authorSelect.setAttribute('aria-expanded', !expanded);
+            author.setAttribute('aria-hidden', expanded);
+        });
+
+        const artistSelect = document.querySelector('#artistSelect');
+        const artist = document.querySelector('#artist');
+
+        artistSelect.addEventListener('click', function () {
+            const expanded = artistSelect.getAttribute('aria-expanded') === 'true' || false;
+            artistSelect.setAttribute('aria-expanded', !expanded);
+            artist.setAttribute('aria-hidden', expanded);
+        });
+
+        const publisherSelect = document.querySelector('#publisherSelect');
+        const publisher = document.querySelector('#publisher');
+
+        publisherSelect.addEventListener('click', function () {
+            const expanded = publisherSelect.getAttribute('aria-expanded') === 'true' || false;
+            publisherSelect.setAttribute('aria-expanded', !expanded);
+            publisher.setAttribute('aria-hidden', expanded);
+        });
+
+        const translateTeamSelect = document.querySelector('#translateTeamSelect');
+        const translateTeam = document.querySelector('#translateTeam');
+
+        translateTeamSelect.addEventListener('click', function () {
+            const expanded = translateTeamSelect.getAttribute('aria-expanded') === 'true' || false;
+            translateTeamSelect.setAttribute('aria-expanded', !expanded);
+            translateTeam.setAttribute('aria-hidden', expanded);
+        });
+
+        const releaseFormatSelect = document.querySelector('#releaseFormatSelect');
+        const releaseFormat = document.querySelector('#releaseFormat');
+
+        releaseFormatSelect.addEventListener('click', function () {
+            const expanded = releaseFormatSelect.getAttribute('aria-expanded') === 'true' || false;
+            releaseFormatSelect.setAttribute('aria-expanded', !expanded);
+            releaseFormat.setAttribute('aria-hidden', expanded);
+        });
+    </script>
+</body>
+</html>

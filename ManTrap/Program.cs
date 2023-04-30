@@ -1,3 +1,12 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Serilog;
+using Serilog.Events;
+using Serilog.AspNetCore;
+using System;
+using Serilog.Formatting.Compact;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,7 +28,28 @@ builder.Services.AddAuthentication(options =>
     options.LogoutPath = "/Pages/Shared/_Layout";
 });
 
+// Configure Serilog
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.ClearProviders();
+    loggingBuilder.AddSerilog(dispose: true);
+});
+
+builder.Host.UseSerilog((context, loggerConfiguration) =>
+{
+    loggerConfiguration.ReadFrom.Configuration(context.Configuration);
+
+    loggerConfiguration.Enrich.FromLogContext()
+        .Enrich.WithProperty("ApplicationName", context.HostingEnvironment.ApplicationName)
+        .Enrich.WithProperty("EnvironmentName", context.HostingEnvironment.EnvironmentName)
+        .Enrich.WithProperty("MachineName", Environment.MachineName)
+        .WriteTo.Console(new RenderedCompactJsonFormatter())
+        .WriteTo.File("logs/myapp.log", rollingInterval: RollingInterval.Day);
+});
+
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -31,6 +61,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(@"D:\Учеба\4335\2_семестр\ТРПО\ЛР3\ManTrap\manga_images"),
+    RequestPath = "/manga_images"
+});
+
 
 app.UseRouting();
 app.UseAuthentication();

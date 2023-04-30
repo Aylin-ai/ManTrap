@@ -98,5 +98,13 @@ namespace ManTrap.Pages
                 conn.Dispose();
             }
         }
+
+        public IActionResult OnPostMangaIdPage(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToPage("/MangaId", new { mangaId = id });
+            else
+                return RedirectToPage("Authorization");
+        }
     }
 }

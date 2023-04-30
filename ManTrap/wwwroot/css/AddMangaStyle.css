@@ -1,0 +1,231 @@
+﻿body {
+}
+
+.outer-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.Page {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #1D252A;
+    width: 50vw;
+}
+
+.Media-Uploader {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+    .Media-Uploader label {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+        color: white;
+    }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+}
+
+    .form__field label {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+        color: white;
+    }
+
+    .form__field input {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+        color: black;
+    }
+
+    .form__field select {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+        color: black;
+    }
+
+    .rows {
+        display: grid;
+        grid-template-columns: 2fr 0.6fr;
+    }
+
+        .rows cols1 {
+            grid-column: 1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 18px;
+            color: white;
+        }
+
+        .rows span {
+            grid-column: 2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            color: orange;
+        }
+
+
+#genre {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #1D252A;
+}
+
+    #genre button {
+        font-size: 16px;
+        color: white;
+        margin: 5px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        border: none;
+        background-color: transparent;
+    }
+
+    #genre[aria-hidden="true"] {
+        display: none;
+    }
+
+#author {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #1D252A;
+}
+
+    #author button {
+        font-size: 16px;
+        color: white;
+        margin: 5px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        border: none;
+        background-color: transparent;
+    }
+
+    #author[aria-hidden="true"] {
+        display: none;
+    }
+
+#artist {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #1D252A;
+}
+
+    #artist button {
+        font-size: 16px;
+        color: white;
+        margin: 5px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        border: none;
+        background-color: transparent;
+    }
+
+    #artist[aria-hidden="true"] {
+        display: none;
+    }
+
+#publisher {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #1D252A;
+}
+
+    #publisher button {
+        font-size: 16px;
+        color: white;
+        margin: 5px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        border: none;
+        background-color: transparent;
+    }
+
+    #publisher[aria-hidden="true"] {
+        display: none;
+    }
+
+#releaseFormat {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #1D252A;
+}
+
+    #releaseFormat button {
+        font-size: 16px;
+        color: white;
+        margin: 5px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        border: none;
+        background-color: transparent;
+    }
+
+    #releaseFormat[aria-hidden="true"] {
+        display: none;
+    }
+
+#translateTeam {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #1D252A;
+}
+
+    #translateTeam button {
+        font-size: 16px;
+        color: white;
+        margin: 5px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        border: none;
+        background-color: transparent;
+    }
+
+    #translateTeam[aria-hidden="true"] {
+        display: none;
+    }
+
+.SelectContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
