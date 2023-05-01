@@ -27,7 +27,7 @@ namespace ManTrap.Pages
         public AddMangaModel()
         {
             Task.Run(GetReleaseFormats);
-            Task.Run(GetTranslateTeams);
+            Task.Run(GetTypes);
             Task.Run(GetData);
             Task.Run(GetAuthors);
         }
@@ -36,9 +36,9 @@ namespace ManTrap.Pages
         {
             await GetStatuses();
             await GetTranslateStatuses();
-            await GetTypes();
             await GetArtists();
             await GetPublishers();
+            await GetTranslateTeams();
         }
 
         public async Task<IActionResult> OnPostUpload(IFormFile file, string originalName, string russianName,
@@ -204,7 +204,7 @@ namespace ManTrap.Pages
                             }
                         }
 
-                        return RedirectToPage("/AddManga");
+                        return RedirectToPage("/Index");
 
                     }
                     catch (Exception ex)

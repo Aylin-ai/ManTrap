@@ -74,22 +74,6 @@
 
                 <div class="LabelAndInput">
 
-                    <label class="FiltrLabel">Сортировка</label>
-
-                    <select asp-for="Order" onchange="this.form.submit()">
-                        <option value="1">По рейтингу</option>
-                        <option value="2">По типу</option>
-                        <option value="3">По популярности</option>
-                        <option value="4">По имени</option>
-                        <option value="5">По дате релиза</option>
-                        <option value="6">По статусу</option>
-                        <option value="7">Случайно</option>
-                    </select>
-
-                </div>
-
-                <div class="LabelAndInput">
-
                     <label class="FiltrLabel">Поиск</label>
                     <input type="text" asp-for="Search" onchange="this.form.submit()" />
 
