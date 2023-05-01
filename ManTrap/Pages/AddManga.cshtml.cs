@@ -44,7 +44,7 @@ namespace ManTrap.Pages
         public async Task<IActionResult> OnPostUpload(IFormFile file, string originalName, string russianName,
             string englishName, int yearOfRelease,
             string[] authors, string[] artists, string[] publishers,
-            string[] genres, string[] releaseFormats, string translateTeam,
+            string[] genres, string[] releaseFormats, string[] translateTeams,
             string status, string translateStatus, string sourceOfOriginal,
             string overview, string type = "1")
         {
@@ -95,6 +95,115 @@ namespace ManTrap.Pages
                         cmd.Parameters.AddWithValue("@overview", overview);
 
                         await cmd.ExecuteNonQueryAsync();
+
+
+                        sql = "select Id from manga where " +
+                            "OriginalName = @originalName and " +
+                            "RussianName = @russianName and " +
+                            "EnglishName = @englishName";
+                        cmd.CommandText = sql;
+                        int Id = 0;
+                        var reader = await cmd.ExecuteReaderAsync();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                Id = reader.GetInt32(0);
+                            }
+                        }
+                        reader.Close();
+                        cmd.Parameters.Clear();
+
+                        if (authors != null)
+                        {
+                            sql = "insert into mangaauthors " +
+                                "values (@mangaId, @authorId);";
+                            cmd.CommandText = sql;
+
+                            for (int i = 0; i < authors.Length; i++)
+                            {
+                                cmd.Parameters.AddWithValue("@mangaId", Id);
+                                cmd.Parameters.AddWithValue("authorId", authors[i]);
+                                await cmd.ExecuteNonQueryAsync();
+                                cmd.Parameters.Clear();
+                            }
+                        }
+
+                        if (artists  != null)
+                        {
+                            sql = "insert into mangaartists " +
+                                "values (@mangaId, @artistId);";
+                            cmd.CommandText = sql;
+
+                            for (int i = 0; i < artists.Length; i++)
+                            {
+                                cmd.Parameters.AddWithValue("@mangaId", Id);
+                                cmd.Parameters.AddWithValue("artistId", artists[i]);
+                                await cmd.ExecuteNonQueryAsync();
+                                cmd.Parameters.Clear();
+                            }
+                        }
+
+                        if (genres != null)
+                        {
+                            sql = "insert into mangagenres " +
+                                "values (@mangaId, @genreId);";
+                            cmd.CommandText = sql;
+
+                            for (int i = 0; i < genres.Length; i++)
+                            {
+                                cmd.Parameters.AddWithValue("@mangaId", Id);
+                                cmd.Parameters.AddWithValue("genreId", genres[i]);
+                                await cmd.ExecuteNonQueryAsync();
+                                cmd.Parameters.Clear();
+                            }
+                        }
+
+                        if (publishers != null)
+                        {
+                            sql = "insert into mangapublishers " +
+                                "values (@mangaId, @publisherId);";
+                            cmd.CommandText = sql;
+
+                            for (int i = 0; i < publishers.Length; i++)
+                            {
+                                cmd.Parameters.AddWithValue("@mangaId", Id);
+                                cmd.Parameters.AddWithValue("publisherId", publishers[i]);
+                                await cmd.ExecuteNonQueryAsync();
+                                cmd.Parameters.Clear();
+                            }
+                        }
+
+                        if (releaseFormats != null)
+                        {
+                            sql = "insert into mangareleaseformats " +
+                                "values (@mangaId, @releaseFormatId);";
+                            cmd.CommandText = sql;
+
+                            for (int i = 0; i < releaseFormats.Length; i++)
+                            {
+                                cmd.Parameters.AddWithValue("@mangaId", Id);
+                                cmd.Parameters.AddWithValue("releaseFormatId", releaseFormats[i]);
+                                await cmd.ExecuteNonQueryAsync();
+                                cmd.Parameters.Clear();
+                            }
+                        }
+
+                        if (translateTeams != null)
+                        {
+                            sql = "insert into mangatranslateteams " +
+                                "values (@mangaId, @translateTeamId);";
+                            cmd.CommandText = sql;
+
+                            for (int i = 0; i < translateTeams.Length; i++)
+                            {
+                                cmd.Parameters.AddWithValue("@mangaId", Id);
+                                cmd.Parameters.AddWithValue("translateTeamId", translateTeams[i]);
+                                await cmd.ExecuteNonQueryAsync();
+                                cmd.Parameters.Clear();
+                            }
+                        }
+
                         return RedirectToPage("/AddManga");
 
                     }
@@ -326,7 +435,7 @@ namespace ManTrap.Pages
             conn.Open();
             try
             {
-                string sql = "select * from author";
+                string sql = "select * from releaseformat";
 
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
