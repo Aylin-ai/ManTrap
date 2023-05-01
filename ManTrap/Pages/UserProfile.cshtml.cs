@@ -11,6 +11,7 @@ namespace ManTrap.Pages
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        [BindProperty(Name = "message", SupportsGet = true)]
         public string ErrorMessage { get; set; } = "";
         private int _userId;
         private string _userName = "";
@@ -235,5 +236,11 @@ namespace ManTrap.Pages
             return Content("Если у вас возникли вопросы, пишите по следующему email адресу: " +
                 "xportbfgh2821@gmail.com");
         }
+
+        public IActionResult OnPostTranslateRoleApplication()
+        {
+            return RedirectToPage("/TranslateRoleApplication", new { login = User.Identity.Name });
+        }
+
     }
 }

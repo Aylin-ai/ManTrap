@@ -1,0 +1,64 @@
+﻿@page
+@model ManTrap.Pages.TranslateRoleApplicationModel
+@{
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/AddMangaStyle.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="outer-page">
+        <div class="Page">
+            @if (Model.IsApplicationAlreadyExists)
+            {
+                <form method="post" asp-page-handler="AcceptTranslateRole">
+                    <div class="form">
+                        <div class="form__field">
+                            <label>
+                                Вы уже подали заявку. Ожидайте. Когда ваша заявка будет принята, тут появится кнопка для подтверждения
+                                принятия роли переводчика
+                            </label>
+                        </div>
+                        @if (Model.IsApplicationAccepted)
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <input type="submit" value="Принять роль" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </form>
+            }
+            else
+            {
+                <label style="font-size:20px; color: white; margin: 10px;">Стать переводчиком</label>
+                <form method="post" asp-page-handler="AddApplication">
+                    <div class="form">
+                        <div class="form__field">
+                            <label>
+                                Переводчик - это тот, кто имеет возможность смотреть и брать заказы обычных пользователей
+                                на перевод манги. Подавая заявку, вы осознаёте, что при попытке подорвать имидж переводчиков
+                                данной платформы вы можете быть забанены. Удачи
+                            </label>
+                        </div>
+                        <div class="form__field">
+                            <label>
+                                Введите ссылку на пример вашей работы (Внимание! Если обнаружиться, что вы украли чужую работу,
+                                то ваш аккаунт будет заблокирован)
+                            </label>
+                            <input type="text" name="exampleWork" />
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="submit" value="Подать заявку" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</body>
+</html>
