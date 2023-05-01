@@ -2,3 +2,118 @@
 @model ManTrap.Pages.MangaIDModel
 @{
 }
+
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="~/css/MangaIdStyle.css" asp-append-version="true" />
+
+</head>
+<body>
+
+    <div class="Page">
+
+        <div class="Container1">
+
+            <div class="MainInformation">
+                <div class="ImageAndSelect">
+                    <img src=@Model.Manga.ImageSource alt="Отсутствует">
+                </div>
+
+                <div class="AnimeIdInformation">
+                    <div class="LabelAndInput">
+                        <label id="MangaName">@Model.Manga.RussianName</label>
+                    </div>
+                    <div class="LabelAndInput">
+                        <label id="MangaEnglishName">@Model.Manga.EnglishName</label>
+                    </div>
+                    <div class="LabelAndInput">
+                        <label>Тип: </label>
+                        <label>@Model.Manga.Type</label>
+                    </div>
+                    <div class="LabelAndInput">
+                        <label>Статус: </label>
+                        <label>@Model.Manga.Status</label>
+                    </div>
+                    <div class="LabelAndInput">
+                        <label>Год выпуска: </label>
+                        <label>@Model.Manga.YearOfRelease</label>
+                    </div>
+                    @if (Model.Manga.Authors.Count != 0)
+                    {
+                        <div class="LabelAndInput">
+                            <label>Автор: </label>
+                            @foreach (var author in Model.Manga.Authors)
+                            {
+                                <label class="FiltrLabel">@author @(" ")</label>
+                            }
+                        </div>
+                    }
+                    @if (Model.Manga.Artsits.Count != 0)
+                    {
+                        <div class="LabelAndInput">
+                            <label>Художник: </label>
+                            @foreach (var artist in Model.Manga.Artsits)
+                            {
+                                <label class="FiltrLabel">@artist @(" ")</label>
+                            }
+                        </div>
+                    }
+                    @if (Model.Manga.Publishers.Count != 0)
+                    {
+                        <div class="LabelAndInput">
+                            <label>Издатель: </label>
+                            @foreach (var publisher in Model.Manga.Publishers)
+                            {
+                                <label class="FiltrLabel">@publisher @(" ")</label>
+                            }
+                        </div>
+                    }
+                    @if (Model.Manga.Genres.Count != 0)
+                    {
+                        <div class="LabelAndInput">
+                            <label class="FiltrLabel">Жанры: </label>
+                            @foreach (var genre in Model.Manga.Genres)
+                            {
+                                <label class="FiltrLabel">@genre @(" ")</label>
+                            }
+                        </div>
+                    }
+                    @if (Model.Manga.ReleaseFormats.Count != 0)
+                    {
+                        <div class="LabelAndInput">
+                            <label>Формат выпуска: </label>
+                            @foreach (var releaseFormat in Model.Manga.ReleaseFormats)
+                            {
+                                <label class="FiltrLabel">@releaseFormat @(" ")</label>
+                            }
+                        </div>
+                    }
+                    @if (Model.Manga.TranslateTeams.Count != 0)
+                    {
+                        <div class="LabelAndInput">
+                            <label>Команда перевода: </label>
+                            @foreach (var translateTeam in Model.Manga.TranslateTeams)
+                            {
+                                <label class="FiltrLabel">@translateTeam @(" ")</label>
+                            }
+                        </div>
+                    }
+                    <div class="LabelAndInput">
+                        <label>Оригинальное название: </label>
+                        <label>@Model.Manga.OriginalName</label>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label id="Description">@Model.Manga.Overview</label>
+                <hr>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
