@@ -141,6 +141,7 @@ namespace ManTrap.Pages
                     cmd.Connection = conn;
 
                     cmd.Parameters.AddWithValue("@login", Login);
+                    cmd.Parameters.AddWithValue("@password", Password1);
 
                     var reader = cmd.ExecuteReader();
 
@@ -177,7 +178,7 @@ namespace ManTrap.Pages
                 }
                 catch (Exception ex)
                 {
-                    ErrorMessage = ex.Message;
+                    ErrorMessage = ex.InnerException.ToString();
                     return Page();
                 }
                 finally

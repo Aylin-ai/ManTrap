@@ -59,23 +59,23 @@
 
                 <div class="LabelAndInput">
                     <label class="FiltrLabel">Жанры</label>
-                    <select asp-for="Genre" asp-items="@Model.Genres" onchange="this.form.submit()"></select>
+                    <select name="genreId" asp-for="Genre" asp-items="@Model.Genres" onchange="this.form.submit()"></select>
                 </div>
 
                 <div class="LabelAndInput">
                     <label class="FiltrLabel">Статус</label>
-                    <select asp-for="Status" asp-items="@Model.Statuses" onchange="this.form.submit()"></select>
+                    <select name="statusId" asp-for="Status" asp-items="@Model.Statuses" onchange="this.form.submit()"></select>
                 </div>
 
                 <div class="LabelAndInput">
                     <label class="FiltrLabel">Тип</label>
-                    <select asp-for="Kind" asp-items="@Model.Kinds" onchange="this.form.submit()"></select>
+                    <select name="typeId" asp-for="Kind" asp-items="@Model.Kinds" onchange="this.form.submit()"></select>
                 </div>
 
                 <div class="LabelAndInput">
 
                     <label class="FiltrLabel">Поиск</label>
-                    <input type="text" asp-for="Search" onchange="this.form.submit()" />
+                    <input name="search" type="text" asp-for="Search" onchange="this.form.submit()" />
 
                 </div>
 
