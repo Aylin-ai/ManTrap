@@ -13,6 +13,7 @@ namespace ManTrap.Pages
         private readonly IHttpContextAccessor _httpContextAccessor;
         public string ErrorMessage { get; set; }
         public string UserImageSrc { get; set; }
+        private int _userRole;
 
         public AuthorizationModel(ILogger<IndexModel> logger, IHttpContextAccessor httpContextAccessor)
         {
@@ -152,11 +153,28 @@ namespace ManTrap.Pages
                     }
                     else
                     {
-                        var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, $"{Login}"),
-                        new Claim(ClaimTypes.Role, "User")
-                    };
+                        while (reader.Read())
+                        {
+                            _userRole = reader.GetInt32(4);
+                        }
+
+                        var claims = new List<Claim>();
+                        if (_userRole == 1)
+                        {
+                            claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, $"{Login}"),
+                            new Claim(ClaimTypes.Role, "User")
+                        };
+                        }
+                        else if (_userRole == 2)
+                        {
+                            claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, $"{Login}"),
+                            new Claim(ClaimTypes.Role, "Translator")
+                        };
+                        }
 
                         var identity = new ClaimsIdentity(
                             claims, "MyCookieAuthenticationScheme");

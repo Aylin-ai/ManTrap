@@ -14,6 +14,7 @@ namespace ManTrap.Pages
         [BindProperty(Name = "message", SupportsGet = true)]
         public string ErrorMessage { get; set; } = "";
         private int _userId;
+        private int _userRole;
         private string _userName = "";
         private string _email = "";
 
@@ -41,7 +42,6 @@ namespace ManTrap.Pages
                     cmd.Connection = conn;
 
                     cmd.Parameters.AddWithValue("@login", User.Identity.Name);
-
                     var reader = await cmd.ExecuteReaderAsync();
 
                     if (reader.HasRows)
@@ -105,6 +105,7 @@ namespace ManTrap.Pages
                         {
                             _userId = reader.GetInt32(0);
                             NewPassword1 ??= reader.GetString(2);
+                            _userRole = reader.GetInt32(4);
                         }
                     }
                     reader.Close();
@@ -147,11 +148,23 @@ namespace ManTrap.Pages
 
                     await cmd.ExecuteNonQueryAsync();
 
-                    var claims = new List<Claim>
+                    var claims = new List<Claim>();
+                    if (_userRole == 1)
                     {
-                        new Claim(ClaimTypes.Name, $"{UserLogin}"),
-                        new Claim(ClaimTypes.Role, "User")
-                    };
+                        claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, $"{UserLogin}"),
+                            new Claim(ClaimTypes.Role, "User")
+                        };
+                    }
+                    else if ( _userRole == 2)
+                    {
+                        claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, $"{UserLogin}"),
+                            new Claim(ClaimTypes.Role, "Translator")
+                        };
+                    }
 
                     var identity = new ClaimsIdentity(
                         claims, "MyCookieAuthenticationScheme");

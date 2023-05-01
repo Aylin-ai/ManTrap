@@ -16,6 +16,10 @@ namespace ManTrap.Controllers
             {
                 switch (selectedValue)
                 {
+                    case "orders":
+                        return RedirectToPage("/Orders");
+                    case "myOrders":
+                        return RedirectToPage("/UserOrders");
                     case "addManga":
                         return RedirectToPage("/AddManga");
                     case "settings":

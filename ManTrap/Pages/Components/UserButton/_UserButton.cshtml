@@ -1,4 +1,5 @@
-﻿@*
+﻿@using System.Security.Claims;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -49,9 +50,14 @@
 
 <form id="UserMenuForm" method="post" action="@Url.Action("SelectionFromUser", "Home")">
     <div id="UserImageContainer">
-        <img id="menu-toggle" scr="~/img/OldPif.jpg" aria-expanded="false" />
+        <img id="menu-toggle" src="~/img/OldPif.jpg" aria-expanded="false" />
 
         <div id="menu" aria-hidden="true">
+            @if (User.FindFirstValue(ClaimTypes.Role) == "Translator")
+            {
+                <button name="selectedValue" action="@Url.Action("SelectionFromUser", "Home")" value="orders">Заказы</button>
+                <button name="selectedValue" action="@Url.Action("SelectionFromUser", "Home")" value="myOrders">Мои заказы</button>
+            }
             <button name="selectedValue" action="@Url.Action("SelectionFromUser", "Home")" value="addManga">Добавить мангу</button>
             <button name="selectedValue" action="@Url.Action("SelectionFromUser", "Home")" value="settings">Настройки</button>
             <button name="selectedValue" action="@Url.Action("SelectionFromUser", "Home")" value="logout">Выйти</button>

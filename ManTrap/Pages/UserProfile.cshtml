@@ -1,5 +1,6 @@
 ﻿@page
 @model ManTrap.Pages.UserProfileModel
+@using System.Security.Claims;
 @{
 }
 
@@ -85,8 +86,10 @@
 
                 <button asp-page-handler="AboutAntrap">О AnTrap</button>
                 <button asp-page-handler="CallCenter">Центр поддержки</button>
-                <button asp-page-handler="TranslateRoleApplication">Переводчик</button>
-
+                @if (User.FindFirstValue(ClaimTypes.Role) == "User")
+                {
+                    <button asp-page-handler="TranslateRoleApplication">Переводчик</button>
+                }
             </form>
 
         </div>
