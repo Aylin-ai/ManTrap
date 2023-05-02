@@ -2,3 +2,79 @@
 @model ManTrap.Pages.UserOrdersModel
 @{
 }
+
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/OrdersStyle.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    <div class="outer-page">
+
+        <div class="Page">
+
+            @{
+                for (int i = 0; i < Model.Orders.Count; i++)
+                {
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <label>Дата создания заказа</label>
+                            </div>
+                            <div class="col">
+                                <label>Статус заказа</label>
+                            </div>
+                            <div class="col">
+                                <label>Заказчик</label>
+                            </div>
+                            <div class="col">
+                                <label>Команда перевода</label>
+                            </div>
+                            <div class="col">
+                                <label>Цена заказа</label>
+                            </div>
+                            <div class="col">
+                                <label>Крайний срок сдачи</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>@Model.Orders[i].DateOfCreation</label>
+                            </div>
+                            <div class="col">
+                                <label>@Model.Orders[i].OrderStatus</label>
+                            </div>
+                            <div class="col">
+                                <label>@Model.Orders[i].Customer</label>
+                            </div>
+                            <div class="col">
+                                <label>@Model.Orders[i].TransalteTeam</label>
+                            </div>
+                            <div class="col">
+                                <label>@Model.Orders[i].Cost</label>
+                            </div>
+                            <div class="col">
+                                <label>@Model.Orders[i].TargetDate</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <form asp-page="OrderComposition">
+                                    <button asp-page-handler="OrderComposition" asp-route-id="@Model.Orders[i].Id">Подробнее</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                }
+            }
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
