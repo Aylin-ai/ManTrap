@@ -1,0 +1,95 @@
+﻿@page
+@model ManTrap.Pages.AddOrderModel
+@{
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/AddMangaStyle.css" asp-append-version="true" />
+
+    <!-- Include Twitter Bootstrap and jQuery: -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <!-- Include the plugin's CSS and JS: -->
+    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css" />
+
+    <script>
+        function addElement() {
+            // Найти шаблон элемента div и склонировать его
+            var template = document.querySelector('#template');
+            var clone = template.cloneNode(true);
+
+            // Добавить клонированный элемент на страницу
+            document.getElementById('mainContainer').appendChild(clone);
+
+            // Скрыть кнопку удаления, если текущий элемент первый в списке дочерних элементов
+            var children = document.getElementById('mainContainer').children;
+            if (children.length === 1) {
+                document.getElementById('remove-button').style.display = 'none';
+            }
+            else {
+                document.getElementById('remove-button').style.display = 'block';
+            }
+        }
+
+
+        function removeElement(button) {
+            button.parentNode.remove();
+        }
+
+
+
+    </script>
+
+</head>
+<body>
+    <div class="outer-page">
+        <div class="Page">
+
+            <form method="post" asp-page-handler="Upload"
+                  enctype="multipart/form-data">
+                <div class="form">
+                    <div class="form__field">
+                        <label>Предлагаемая цена</label>
+                        <input type="number" name="cost" />
+                    </div>
+                    <div class="form__field">
+                        <label>Крайний срок сдачи (необязательно)</label>
+                        <input type="date" name="targetDate" />
+                    </div>
+                    <div class="form__field">
+                        <label>Состав заказа</label>
+                    </div>
+                    <hr />
+                    <div class="form__field" id="mainContainer">
+                        <div id="template" style="display:flex; flex-direction:column;">
+                            <div class="form__field">
+                                <label>Манга</label>
+                                <select name="mangaId[]" asp-items="Model.Mangas"></select>
+                            </div>
+                            <div class="form__field">
+                                <label>Ссылка на оригинал главы для перевода</label>
+                                <input type="url" name="sourceOfChapterToTranslate[]" />
+                            </div>
+                            <div class="form__field">
+                                <label>Номер главы</label>
+                                <input type="number" name="chapterId[]" />
+                            </div>
+                            <button type="button" id="remove-button" onclick="removeElement(this)">-</button>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" onclick="addElement()">+</button>
+                        <input type="submit" name="submitBtn" value="Сохранить" />
+                    </div>
+                </div>
+            </form>
+            <a asp-page="Index"><button>Назад</button></a>
+        </div>
+    </div>
+</body>
+</html>

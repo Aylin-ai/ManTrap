@@ -229,3 +229,12 @@
     align-items: center;
 }
 
+.form hr {
+    color: white;
+    margin: 0, 5px;
+}
+
+#remove-button {
+    display: none;
+}
+

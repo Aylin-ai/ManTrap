@@ -20,6 +20,8 @@ namespace ManTrap.Controllers
                         return RedirectToPage("/Orders");
                     case "myOrders":
                         return RedirectToPage("/UserOrders");
+                    case "addOrder":
+                        return RedirectToPage("/AddOrder");
                     case "addManga":
                         return RedirectToPage("/AddManga");
                     case "settings":
