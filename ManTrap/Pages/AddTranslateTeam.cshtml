@@ -1,0 +1,41 @@
+﻿@page
+@model ManTrap.Pages.AddTranslateTeamModel
+@{
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/AddMangaStyle.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="outer-page">
+        <div class="Page">
+            @if (Model.IsUserHasTeam == true)
+            {
+                <label style="font-size:20px; color: white; margin: 10px;">Ваша команда - @Model.TeamName</label>
+                <div class="form__field" style="margin: 10px;">
+                    <label>Создана @Model.DateOfCreation</label>
+                    <label>Ваша роль в ней - @Model.UserRole</label>
+                </div>
+            }
+            else
+            {
+                <label style="font-size:20px; color: white; margin: 10px;">Добавить новую команду перевода (Вы - представитель команды)</label>
+                <form method="post" asp-page-handler="AddTranslateTeam">
+                    <div class="form">
+                        <div class="form__field">
+                            <label>Имя</label>
+                            <input type="text" name="translateTeamName" />
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="submit" value="Добавить" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</body>
+</html>

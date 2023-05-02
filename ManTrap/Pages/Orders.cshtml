@@ -59,12 +59,13 @@
                                 <label>@Model.Orders[i].TargetDate</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <form asp-page="OrderComposition">
-                                    <button asp-page-handler="OrderComposition" asp-route-id="@Model.Orders[i].Id">Подробнее</button>
-                                </form>
-                            </div>
+                        <div style="display:flex; flex-direction:row;">
+                            <form asp-page="OrderComposition">
+                                <button asp-page-handler="OrderComposition" asp-route-id="@Model.Orders[i].Id">Подробнее</button>
+                            </form>
+                            <form method="post">
+                                <button asp-page-handler="TakeOrder" asp-route-id="@Model.Orders[i].Id">Принять заказ</button>
+                            </form>
                         </div>
                     </div>
                     <hr />

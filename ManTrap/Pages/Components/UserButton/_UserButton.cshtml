@@ -55,6 +55,7 @@
         <div id="menu" aria-hidden="true">
             @if (User.FindFirstValue(ClaimTypes.Role) == "Translator")
             {
+                <button name="selectedValue" action="@Url.Action("SelectionFromUser", "Home")" value="myTeam">Моя команда</button>
                 <button name="selectedValue" action="@Url.Action("SelectionFromUser", "Home")" value="orders">Заказы</button>
                 <button name="selectedValue" action="@Url.Action("SelectionFromUser", "Home")" value="myOrders">Мои заказы</button>
             }

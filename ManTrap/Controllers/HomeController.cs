@@ -16,6 +16,8 @@ namespace ManTrap.Controllers
             {
                 switch (selectedValue)
                 {
+                    case "myTeam":
+                        return RedirectToPage("/AddTranslateTeam");
                     case "orders":
                         return RedirectToPage("/Orders");
                     case "myOrders":

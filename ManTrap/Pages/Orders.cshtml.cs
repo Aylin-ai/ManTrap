@@ -23,6 +23,63 @@ namespace ManTrap.Pages
             return RedirectToPage("/OrderComposition", new { orderId = id });
         }
 
+        public IActionResult OnPostTakeOrder(int id)
+        {
+            MySqlConnection conn = DBUtils.GetDBConnection();
+            conn.Open();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conn;
+
+                string sql = "select translateteamcomposition.TranslateTeam_Id, translateteam.Title from " +
+                    "translateteam inner join translateteamcomposition " +
+                    "on translateteamcomposition.TranslateTeam_Id = translateteam.Id " +
+                    "where translateteamcomposition.UserInformation_Login = @user";
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("user", User.Identity.Name);
+
+                int teamId = 0;
+                string teamName = "";
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        teamId = reader.GetInt32(0);
+                        teamName = reader.GetString(1);
+                    }
+                }
+                else
+                {
+                    return BadRequest("ƒл€ прин€ти€ заказа вы должны быть в команде. —оздайте свою команду либо присоединитесь к другой.");
+                }
+                reader.Close();
+
+                sql = "update contract " +
+                    "set TranslateTeam_Id = @teamId, " +
+                    "ContractStatus_Id = 2 " +
+                    "where Id = @contractId";
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@teamId", teamId);
+                cmd.Parameters.AddWithValue("@contractId", id);
+                cmd.ExecuteNonQuery();
+                return RedirectToPage("/Index");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
+        }
+
         public void GetOrders()
         {
             MySqlConnection conn = DBUtils.GetDBConnection();
