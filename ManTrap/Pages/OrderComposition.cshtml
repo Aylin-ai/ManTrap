@@ -2,3 +2,51 @@
 @model ManTrap.Pages.OrderCompositionModel
 @{
 }
+
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/OrdersStyle.css" asp-append-version="true" />
+</head>
+
+<body>
+    <div class="outer-page">
+        <div class="Page">
+            @{
+                for (int i = 0; i < Model.OrderItems.Count; i++)
+                {
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <label>Манга</label>
+                            </div>
+                            <div class="col">
+                                <label>Ссылка на главу для перевода</label>
+                            </div>
+                            <div class="col">
+                                <label>Номер главы</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>@Model.OrderItems[i].RussianName</label>
+                                <form asp-page="MangaID">
+                                    <input type="submit" value="Подробнее" asp-page-handler="MangaIdPage" asp-route-id="@Model.OrderItems[i].MangaId" />
+                                </form>
+                            </div>
+                            <div class="col">
+                                <label>@Model.OrderItems[i].SourceOfChapterToTranslate</label>
+                            </div>
+                            <div class="col">
+                                <label>@Model.OrderItems[i].ChapterId</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                }
+            }
+        </div>
+    </div>
+</body>
+
+</html>
